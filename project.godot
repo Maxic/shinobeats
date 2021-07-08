@@ -12,7 +12,6 @@ config_version=4
 
 config/name="shinobeats"
 run/main_scene="res://main.tscn"
-config/icon="res://icon.png"
 
 [input]
 
@@ -35,7 +34,3 @@ pattern2={
 [physics]
 
 common/enable_pause_aware_picking=true
-
-[rendering]
-
-environment/default_environment="res://default_env.tres"
