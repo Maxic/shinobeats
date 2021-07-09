@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://shaders/static_pattern.tres" type="Material" id=1]
 [ext_resource path="res://assets/icon.png" type="Texture" id=2]
@@ -7,8 +7,22 @@
 [ext_resource path="res://assets/M5x7Font.tres" type="DynamicFont" id=5]
 [ext_resource path="res://assets/blue_cubes.jpg" type="Texture" id=6]
 [ext_resource path="res://scripts/fps_counter.gd" type="Script" id=7]
+[ext_resource path="res://assets/bg_template.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="Shader" id=7]
+code = "shader_type canvas_item;
+
+void vertex(){
+	VERTEX.x += 1f;
+}"
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 255, 61.9101 )
 
 [sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
@@ -59,9 +73,23 @@ visible = false
 scale = Vector2( 3, 2.88 )
 shape = SubResource( 1 )
 
+[node name="background" type="Node2D" parent="."]
+
+[node name="dynamicwall_upper" type="Area2D" parent="background"]
+material = SubResource( 8 )
+position = Vector2( 925, 236 )
+
+[node name="sprite" type="Sprite" parent="background/dynamicwall_upper"]
+texture = ExtResource( 8 )
+
+[node name="dynamicwall_collision" type="CollisionShape2D" parent="background/dynamicwall_upper"]
+shape = SubResource( 6 )
+
 [node name="UI" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -1.0
+margin_bottom = -1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
