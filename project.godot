@@ -13,6 +13,10 @@ config_version=4
 config/name="shinobeats"
 run/main_scene="res://main.tscn"
 
+[display]
+
+window/vsync/use_vsync=false
+
 [input]
 
 switch={

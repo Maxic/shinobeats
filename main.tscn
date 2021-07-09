@@ -1,15 +1,31 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://shaders/static_pattern.tres" type="Material" id=1]
 [ext_resource path="res://assets/icon.png" type="Texture" id=2]
 [ext_resource path="res://scripts/player.gd" type="Script" id=3]
 [ext_resource path="res://assets/orange_waves.jpg" type="Texture" id=4]
-[ext_resource path="res://m5x7.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/M5x7Font.tres" type="DynamicFont" id=5]
 [ext_resource path="res://assets/blue_cubes.jpg" type="Texture" id=6]
+[ext_resource path="res://scripts/fps_counter.gd" type="Script" id=7]
 
-[sub_resource type="DynamicFont" id=3]
-size = 64
-font_data = ExtResource( 5 )
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+uniform sampler2D mask_texture;
+
+void fragment(){
+	COLOR = texture(TEXTURE, UV);
+	if (COLOR.a != 0f && COLOR != vec4(0f,0f,0f,1f)) {
+		vec4 st = texture(mask_texture, SCREEN_UV);
+		COLOR = vec4(st.x, st.y, st.z, 1.0);
+	}
+}
+"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+shader_param/mask_texture = ExtResource( 6 )
 
 [sub_resource type="Shader" id=4]
 code = "shader_type canvas_item;
@@ -26,75 +42,77 @@ void fragment(){
 
 [sub_resource type="ShaderMaterial" id=5]
 shader = SubResource( 4 )
-shader_param/mask_texture = ExtResource( 6 )
-
-[sub_resource type="Shader" id=6]
-code = "shader_type canvas_item;
-uniform sampler2D mask_texture;
-
-void fragment(){
-	COLOR = texture(TEXTURE, UV);
-	if (COLOR.a != 0f && COLOR != vec4(0f,0f,0f,1f)) {
-		vec4 st = texture(mask_texture, SCREEN_UV);
-		COLOR = vec4(st.x, st.y, st.z, 1.0);
-	}
-}
-"
-
-[sub_resource type="ShaderMaterial" id=7]
-shader = SubResource( 6 )
 shader_param/mask_texture = ExtResource( 4 )
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node"]
 
 [node name="player" type="KinematicBody2D" parent="."]
 position = Vector2( 194, 237 )
 script = ExtResource( 3 )
 
-[node name="Sprite" type="Sprite" parent="player"]
+[node name="shader_pattern" type="Sprite" parent="player"]
 material = ExtResource( 1 )
 texture = ExtResource( 2 )
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+visible = false
+scale = Vector2( 3, 2.88 )
+shape = SubResource( 1 )
+
 [node name="UI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="UI"]
+margin_left = 30.0
+margin_top = 20.0
 margin_right = 40.0
 margin_bottom = 40.0
+custom_constants/separation = 640
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
-margin_left = 20.0
-margin_top = 10.0
-margin_right = 40.0
-margin_bottom = 51.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer"]
-margin_right = 196.0
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/HBoxContainer1"]
+margin_right = 176.0
 margin_bottom = 51.0
 custom_constants/separation = 120
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Q" type="Label" parent="UI/VBoxContainer/HBoxContainer"]
+[node name="Q" type="Label" parent="UI/HBoxContainer1/HBoxContainer2"]
 margin_right = 24.0
 margin_bottom = 51.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = ExtResource( 5 )
 text = "Q"
 
-[node name="pattern1" type="Sprite" parent="UI/VBoxContainer/HBoxContainer/Q"]
-material = SubResource( 5 )
+[node name="pattern1" type="Sprite" parent="UI/HBoxContainer1/HBoxContainer2/Q"]
+material = SubResource( 3 )
 position = Vector2( 61, 30 )
 texture = ExtResource( 2 )
 
-[node name="W" type="Label" parent="UI/VBoxContainer/HBoxContainer"]
+[node name="W" type="Label" parent="UI/HBoxContainer1/HBoxContainer2"]
 margin_left = 144.0
 margin_right = 176.0
 margin_bottom = 51.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = ExtResource( 5 )
 text = "W"
 
-[node name="pattern2" type="Sprite" parent="UI/VBoxContainer/HBoxContainer/W"]
-material = SubResource( 7 )
+[node name="pattern2" type="Sprite" parent="UI/HBoxContainer1/HBoxContainer2/W"]
+material = SubResource( 5 )
 position = Vector2( 69, 30 )
 texture = ExtResource( 2 )
+
+[node name="fps_counter" type="Label" parent="UI/HBoxContainer1"]
+margin_left = 816.0
+margin_right = 816.0
+margin_bottom = 51.0
+custom_fonts/font = ExtResource( 5 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

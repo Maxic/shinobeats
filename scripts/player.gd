@@ -22,7 +22,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_released("switch"):
+	if Input.is_action_just_pressed("switch"):
 		if on_floor ==  FLOOR.ground:
 			position.y += FLOOR_HEIGHT
 			on_floor = FLOOR.first
@@ -31,7 +31,7 @@ func _process(delta):
 			on_floor = FLOOR.ground
 	
 	if Input.is_action_just_pressed("pattern1"):
-		$Sprite.material.set("shader_param/mask_texture", pattern1)
+		$shader_pattern.material.set("shader_param/mask_texture", pattern1)
 
 	if Input.is_action_just_pressed("pattern2"):
-		$Sprite.material.set("shader_param/mask_texture", pattern2)
+		$shader_pattern.material.set("shader_param/mask_texture", pattern2)
