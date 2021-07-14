@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/leon chang - dusk beat.mp3-acb8d2123a0cc28aae9aa52db0a8ffb8.mp3str"
+
+[deps]
+
+source_file="res://assets/leon chang - dusk beat.mp3"
+dest_files=[ "res://.import/leon chang - dusk beat.mp3-acb8d2123a0cc28aae9aa52db0a8ffb8.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

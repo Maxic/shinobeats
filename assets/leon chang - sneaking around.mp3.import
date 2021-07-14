@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/leon chang - sneaking around.mp3-01b18353d44a11b5c25c157c8a9cdb83.mp3str"
+
+[deps]
+
+source_file="res://assets/leon chang - sneaking around.mp3"
+dest_files=[ "res://.import/leon chang - sneaking around.mp3-01b18353d44a11b5c25c157c8a9cdb83.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
