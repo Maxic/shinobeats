@@ -2,6 +2,8 @@ extends Area2D
 
 
 # Declare member variables here. Examples:
+var stamp = preload("res://game_objects/shinobi_stamp.tscn")
+
 export var MOVE_SPEED = 20.0
 var delta_sum = 0
 const DUSK_BEATS_TTP = 0.00522
@@ -27,20 +29,23 @@ func _process(delta):
 	
 
 func _on_dynamicwall_pattern1_body_entered(body):
-	validate_state(body.pattern, "pattern1")
+	pass
+	#validate_state(body.pattern, "pattern1")
 		
 func _on_dynamicwall_pattern1_body_exited(body):
 	validate_state(body.pattern, "pattern1")
 
 func _on_dynamicwall_pattern2_body_entered(body):
-	validate_state(body.pattern, "pattern2")
+	pass
+	#validate_state(body.pattern, "pattern2")
 
 func _on_dynamicwall_pattern2_body_exited(body):
 	validate_state(body.pattern, "pattern2")
 
 func validate_state(current_state, desired_state):
 	if current_state == desired_state:
-		pass
+		var stamp_instance = stamp.instance()
+		add_child(stamp_instance)
 		#print("good with state: " + current_state)
 	else:
 		print("dead!")
