@@ -40,6 +40,8 @@ func _on_dynamicwall_pattern2_body_exited(body):
 
 func validate_state(current_state, desired_state):
 	if current_state == desired_state:
-		print("good with state: " + current_state)
+		pass
+		#print("good with state: " + current_state)
 	else:
-		print("you are dead with state: " + current_state)
+		print("dead!")
+		get_node("/root/main/player").dead = true

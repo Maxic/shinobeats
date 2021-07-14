@@ -1,34 +1,95 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://shaders/static_pattern.tres" type="Material" id=1]
-[ext_resource path="res://assets/icon.png" type="Texture" id=2]
 [ext_resource path="res://scripts/player.gd" type="Script" id=3]
-[ext_resource path="res://assets/orange_waves.jpg" type="Texture" id=4]
+[ext_resource path="res://assets/yellow_icon.png" type="Texture" id=4]
 [ext_resource path="res://assets/M5x7Font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://assets/blue_icon.png" type="Texture" id=6]
 [ext_resource path="res://scripts/fps_counter.gd" type="Script" id=7]
 [ext_resource path="res://game_objects/static_wall.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/shinobeat.png" type="Texture" id=9]
 [ext_resource path="res://assets/leon chang - dusk beat.mp3" type="AudioStream" id=10]
 [ext_resource path="res://scripts/game_logic.gd" type="Script" id=11]
-[ext_resource path="res://panel_counter.gd" type="Script" id=12]
+[ext_resource path="res://scripts/panel_counter.gd" type="Script" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 2, 10 )
 
-[sub_resource type="Shader" id=4]
+[sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
-uniform sampler2D mask_texture;
 
-void fragment(){
-	COLOR = texture(TEXTURE, UV);
-	if (COLOR.a != 0f && COLOR != vec4(0f,0f,0f,1f)) {
-		vec4 st = texture(mask_texture, SCREEN_UV);
-		COLOR = vec4(st.x, st.y, st.z, 1.0);
+
+// If the character should become transparent
+uniform bool transparent = false;
+// Which color you want to change
+uniform vec4 filter_color_1 : hint_color;
+// Which color to replace it with
+uniform vec4 u_replacement_color : hint_color;
+// How much tolerance for the replacement color (between 0 and 1)
+uniform float u_tolerance;
+
+void fragment() {
+	if(transparent){
+		
+		// Get color from the sprite texture at the current pixel we are rendering
+    	vec4 original_color = texture(TEXTURE, UV);
+
+	    // Get a rough degree of difference between the texture color and the color key
+	    vec4 diff4 = original_color - filter_color_1;
+	    float m = max(max(abs(diff4.r), abs(diff4.g)), abs(diff4.b));
+
+	    // Change color of pixels below tolerance threshold, while keeping shades if any (a bit naive, there may better ways)
+		//float brightness = length(filter_color_1);
+	    vec4 col = mix(original_color, u_replacement_color, step(m, u_tolerance));
+	    // Assign final color for the pixel, and preserve transparency
+	    COLOR = col;
+
+		if (COLOR.rbg == vec3(1.0, 1.0, 1.0)){
+			COLOR.a = 0.0
+		}
+		
+	} else {
+		COLOR = texture(TEXTURE, UV)	
 	}
-}
-"
+}"
 
-[sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 4 )
-shader_param/mask_texture = ExtResource( 4 )
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+shader_param/transparent = false
+shader_param/filter_color_1 = Color( 0.909804, 0.909804, 0.909804, 1 )
+shader_param/u_replacement_color = Color( 0.196078, 0.196078, 0.196078, 0.196078 )
+shader_param/u_tolerance = 0.01
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 218, 252 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 9 )
+region = Rect2( 218, 0, 218, 252 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 9 )
+region = Rect2( 436, 0, 218, 252 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 9 )
+region = Rect2( 654, 0, 218, 252 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 9 )
+region = Rect2( 872, 0, 218, 252 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 9 )
+region = Rect2( 1090, 0, 218, 252 )
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"loop": true,
+"name": "dance",
+"speed": 9.05
+} ]
 
 [node name="main" type="Node"]
 
@@ -38,18 +99,19 @@ script = ExtResource( 11 )
 [node name="static_wall" parent="background" instance=ExtResource( 8 )]
 
 [node name="player" type="KinematicBody2D" parent="."]
-position = Vector2( 185, 470 )
+position = Vector2( 200, 440 )
 script = ExtResource( 3 )
 
-[node name="shader_pattern" type="Sprite" parent="player"]
-material = ExtResource( 1 )
-position = Vector2( 39.7052, -18.7289 )
-texture = ExtResource( 2 )
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
-visible = false
-scale = Vector2( 3, 2.88 )
 shape = SubResource( 1 )
+
+[node name="ninja_anim" type="AnimatedSprite" parent="player"]
+material = SubResource( 3 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 10 )
+animation = "dance"
+frame = 5
+playing = true
 
 [node name="UI" type="Control" parent="."]
 anchor_right = 1.0
@@ -88,7 +150,7 @@ text = "Q"
 
 [node name="pattern1" type="Sprite" parent="UI/HBoxContainer1/HBoxContainer2/Q"]
 position = Vector2( 61, 30 )
-texture = ExtResource( 2 )
+texture = ExtResource( 6 )
 
 [node name="W" type="Label" parent="UI/HBoxContainer1/HBoxContainer2"]
 margin_left = 144.0
@@ -98,9 +160,8 @@ custom_fonts/font = ExtResource( 5 )
 text = "W"
 
 [node name="pattern2" type="Sprite" parent="UI/HBoxContainer1/HBoxContainer2/W"]
-material = SubResource( 5 )
 position = Vector2( 69, 30 )
-texture = ExtResource( 2 )
+texture = ExtResource( 4 )
 
 [node name="fps_counter" type="Label" parent="UI/HBoxContainer1"]
 margin_left = 738.0
@@ -118,11 +179,10 @@ autoplay = true
 
 [node name="Label" type="Label" parent="UI"]
 margin_left = 210.0
-margin_top = 423.0
+margin_top = 190.0
 margin_right = 250.0
-margin_bottom = 474.0
+margin_bottom = 241.0
 custom_fonts/font = ExtResource( 5 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "2"
 script = ExtResource( 12 )
 __meta__ = {

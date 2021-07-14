@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 
+var dead = false
 enum FLOOR{
   ground,
   first
@@ -23,21 +24,26 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
 	if Input.is_action_just_pressed("pattern1"):
-		$shader_pattern.material.set("shader_param/mask_texture", pattern1)
+		$ninja_anim.material.set("shader_param/transparent", true)
 		pattern = "pattern1"
 		
 	if Input.is_action_just_pressed("pattern2"):
-		$shader_pattern.material.set("shader_param/mask_texture", pattern2)
+		$ninja_anim.material.set("shader_param/transparent", true)
 		pattern = "pattern2"
 		
 	if pattern == "pattern1" && Input.is_action_just_released("pattern1"):
-		$shader_pattern.material.set("shader_param/mask_texture", "")
+		$ninja_anim.material.set("shader_param/transparent", false)
 		pattern = "default"
 		
 	if pattern == "pattern2" && Input.is_action_just_released("pattern2"):
-		$shader_pattern.material.set("shader_param/mask_texture", "")
+		$ninja_anim.material.set("shader_param/transparent", false)
 		pattern = "default"
+		
+	if dead:
+		pass
+		# TODO: $shader_pattern.material.set("shader_param/dead", true)
 	
 	# Not using switch mechanic currently
 #	if Input.is_action_just_pressed("switch"):
