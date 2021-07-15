@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/82712__sandyrb__taiko-drum-001.wav-1ae66a5f4cc3b47c4ebbd143ac66c0e0.sample"
+
+[deps]
+
+source_file="res://assets/82712__sandyrb__taiko-drum-001.wav"
+dest_files=[ "res://.import/82712__sandyrb__taiko-drum-001.wav-1ae66a5f4cc3b47c4ebbd143ac66c0e0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

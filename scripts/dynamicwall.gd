@@ -46,7 +46,7 @@ func validate_state(current_state, desired_state):
 	if current_state == desired_state:
 		var stamp_instance = stamp.instance()
 		add_child(stamp_instance)
-		#print("good with state: " + current_state)
+		stamp_instance.get_child(0).play("stamp")
 	else:
 		print("dead!")
 		get_node("/root/main/player").dead = true

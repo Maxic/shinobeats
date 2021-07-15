@@ -1,8 +1,60 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/shinobi_stamp.png" type="Texture" id=1]
+[ext_resource path="res://assets/82712__sandyrb__taiko-drum-001.wav" type="AudioStream" id=2]
+[ext_resource path="res://scripts/shinobi_stamp.gd" type="Script" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "stamp"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.196147, 1 ),
+"update": 0,
+"values": [ Vector2( 0.8, 0.8 ), Vector2( 0.1, 0.1 ) ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 1.73,
+"start_offset": 0.0,
+"stream": ExtResource( 2 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "trigger_shake"
+} ]
+}
 
 [node name="shinobi_stamp" type="Sprite"]
 position = Vector2( 175, 70 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 1 )
+script = ExtResource( 3 )
+
+[node name="shinobi_stamp_anim" type="AnimationPlayer" parent="."]
+anims/stamp = SubResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )

@@ -1,5 +1,6 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
+[ext_resource path="res://scripts/shake_cam.gd" type="Script" id=1]
 [ext_resource path="res://scripts/player.gd" type="Script" id=3]
 [ext_resource path="res://assets/yellow_icon.png" type="Texture" id=4]
 [ext_resource path="res://assets/M5x7Font.tres" type="DynamicFont" id=5]
@@ -59,33 +60,33 @@ shader_param/filter_color_1 = Color( 0.909804, 0.909804, 0.909804, 1 )
 shader_param/u_replacement_color = Color( 0.196078, 0.196078, 0.196078, 0.196078 )
 shader_param/u_tolerance = 0.01
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 9 )
 region = Rect2( 0, 0, 218, 252 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 9 )
 region = Rect2( 218, 0, 218, 252 )
 
-[sub_resource type="AtlasTexture" id=13]
+[sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 9 )
 region = Rect2( 436, 0, 218, 252 )
 
-[sub_resource type="AtlasTexture" id=14]
+[sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 9 )
 region = Rect2( 654, 0, 218, 252 )
 
-[sub_resource type="AtlasTexture" id=15]
+[sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 9 )
 region = Rect2( 872, 0, 218, 252 )
 
-[sub_resource type="AtlasTexture" id=16]
+[sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 9 )
 region = Rect2( 1090, 0, 218, 252 )
 
 [sub_resource type="SpriteFrames" id=10]
 animations = [ {
-"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
 "loop": true,
 "name": "dance",
 "speed": 9.05
@@ -102,7 +103,7 @@ script = ExtResource( 11 )
 position = Vector2( 200, 440 )
 script = ExtResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+[node name="player_collider" type="CollisionShape2D" parent="player"]
 shape = SubResource( 1 )
 
 [node name="ninja_anim" type="AnimatedSprite" parent="player"]
@@ -110,7 +111,7 @@ material = SubResource( 3 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 10 )
 animation = "dance"
-frame = 3
+frame = 2
 playing = true
 
 [node name="UI" type="Control" parent="."]
@@ -188,3 +189,8 @@ script = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="shake_cam" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+script = ExtResource( 1 )
