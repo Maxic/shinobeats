@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://scripts/shake_cam.gd" type="Script" id=1]
 [ext_resource path="res://assets/birpf.png" type="Texture" id=2]
@@ -11,9 +11,10 @@
 [ext_resource path="res://assets/shinobeat.png" type="Texture" id=9]
 [ext_resource path="res://assets/leon chang - dusk beat.mp3" type="AudioStream" id=10]
 [ext_resource path="res://scripts/game_logic.gd" type="Script" id=11]
-[ext_resource path="res://scripts/player_state.gd" type="Script" id=12]
+[ext_resource path="res://scripts/transparent_shader.gd" type="Script" id=12]
 [ext_resource path="res://assets/dead.png" type="Texture" id=13]
-[ext_resource path="res://dusk_beat.gd" type="Script" id=14]
+[ext_resource path="res://scripts/dusk_beat.gd" type="Script" id=14]
+[ext_resource path="res://assets/shinobi_cast.png" type="Texture" id=15]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -116,6 +117,26 @@ region = Rect2( 872, 0, 218, 252 )
 atlas = ExtResource( 9 )
 region = Rect2( 1090, 0, 218, 252 )
 
+[sub_resource type="AtlasTexture" id=18]
+flags = 4
+atlas = ExtResource( 15 )
+region = Rect2( 0, 0, 218, 252 )
+
+[sub_resource type="AtlasTexture" id=19]
+flags = 4
+atlas = ExtResource( 15 )
+region = Rect2( 218, 0, 218, 252 )
+
+[sub_resource type="AtlasTexture" id=20]
+flags = 4
+atlas = ExtResource( 15 )
+region = Rect2( 436, 0, 218, 252 )
+
+[sub_resource type="AtlasTexture" id=21]
+flags = 4
+atlas = ExtResource( 15 )
+region = Rect2( 654, 0, 218, 252 )
+
 [sub_resource type="SpriteFrames" id=16]
 animations = [ {
 "frames": [ ExtResource( 13 ) ],
@@ -127,6 +148,11 @@ animations = [ {
 "loop": true,
 "name": "dance",
 "speed": 9.2
+}, {
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
+"loop": false,
+"name": "cast",
+"speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=17]
@@ -144,7 +170,7 @@ position = Vector2( 1882.81, 108.997 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 7 )
 animation = "dance"
-frame = 2
+frame = 1
 playing = true
 
 [node name="birp2" type="AnimatedSprite" parent="background/static_wall"]
@@ -152,7 +178,7 @@ position = Vector2( 909.052, 1094.53 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 7 )
 animation = "dance"
-frame = 2
+frame = 1
 playing = true
 flip_h = true
 
@@ -165,7 +191,7 @@ material = SubResource( 9 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 16 )
 animation = "dance"
-frame = 2
+frame = 5
 playing = true
 script = ExtResource( 12 )
 
@@ -242,3 +268,5 @@ script = ExtResource( 14 )
 anchor_mode = 0
 current = true
 script = ExtResource( 1 )
+
+[connection signal="animation_finished" from="player/ninja_anim" to="player/ninja_anim" method="_on_ninja_anim_animation_finished"]

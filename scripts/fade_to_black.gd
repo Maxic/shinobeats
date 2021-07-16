@@ -15,4 +15,3 @@ func _ready():
 func _process(delta):
 	if PlayerState.dead:
 		set_modulate(lerp(get_modulate(), Color(0,0,0,1), 0.0005))
-

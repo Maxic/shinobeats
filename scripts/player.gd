@@ -27,18 +27,22 @@ func _ready():
 func _process(delta):
 	
 	if Input.is_action_just_pressed("pattern1"):
-		$ninja_anim.material.set("shader_param/transparent", true)
 		pattern = "pattern1"
+		
 		if current_wall == pattern:
+			$ninja_anim.trigger_transparency =  true
+			$ninja_anim.play("cast")
 			stamp(current_wall_node)
 			get_node("/root/main/shake_cam").trigger_shake = true
 		else:
 			self.dead = true
 		
 	if Input.is_action_just_pressed("pattern2"):
-		$ninja_anim.material.set("shader_param/transparent", true)
 		pattern = "pattern2"
+		
 		if current_wall == pattern:
+			$ninja_anim.trigger_transparency =  true
+			$ninja_anim.play("cast")
 			stamp(current_wall_node)
 			get_node("/root/main/shake_cam").trigger_shake = true
 		else:

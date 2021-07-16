@@ -11,22 +11,20 @@ func _ready():
 	randomize()
 	cur_pos = offset
 
-func _process(delta):	
+func _process(delta):
 	if trigger_shake and not is_shake:
-		elapsedtime = 0
 		is_shake = true
 		trigger_shake = false
 		
 	if is_shake:
-		shake(delta)    
+		shake(delta) 
 
 
 func shake(delta):
 	if elapsedtime<shake_time:
-		#print("shakecam2: " + str(OS.get_ticks_msec()))
 		offset =  Vector2(randf(), randf()) * shake_power
 		elapsedtime += delta
 	else:
 		is_shake = false
 		elapsedtime = 0
-		offset = cur_pos   
+		offset = cur_pos
