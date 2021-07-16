@@ -13,12 +13,12 @@ void vertex(){
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
 
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 110, 30 )
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 130, 10 )
 
 [node name="dynamicwall_pattern1" type="Area2D"]
 material = SubResource( 2 )
-position = Vector2( 0, 240 )
+position = Vector2( 0, 195 )
 script = ExtResource( 3 )
 
 [node name="sprite" type="Sprite" parent="."]
@@ -27,8 +27,9 @@ texture = ExtResource( 1 )
 centered = false
 
 [node name="dynamicwall_collision" type="CollisionShape2D" parent="."]
-position = Vector2( 124, 220 )
-shape = SubResource( 5 )
+position = Vector2( 108, 240 )
+z_index = 10
+shape = SubResource( 3 )
 
 [connection signal="body_entered" from="." to="." method="_on_dynamicwall_pattern1_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_dynamicwall_pattern1_body_exited"]
