@@ -18,14 +18,15 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	delta_sum += delta
-	
-	if delta_sum >= time_per_pixel_threshold:
-		position.x -= 1
-		time_per_pixel_threshold += time_per_pixel
-	
-	if position.x < -257:
-		queue_free()	
+	if !PlayerState.dead:
+		delta_sum += delta
+		
+		if delta_sum >= time_per_pixel_threshold:
+			position.x -= 1
+			time_per_pixel_threshold += time_per_pixel
+		
+		if position.x < -257:
+			queue_free()	
 
 func _on_dynamicwall_pattern1_body_entered(body):
 	var current_pattern = "pattern1"

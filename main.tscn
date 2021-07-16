@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scripts/shake_cam.gd" type="Script" id=1]
 [ext_resource path="res://assets/birpf.png" type="Texture" id=2]
@@ -11,8 +11,9 @@
 [ext_resource path="res://assets/shinobeat.png" type="Texture" id=9]
 [ext_resource path="res://assets/leon chang - dusk beat.mp3" type="AudioStream" id=10]
 [ext_resource path="res://scripts/game_logic.gd" type="Script" id=11]
-[ext_resource path="res://scripts/panel_counter.gd" type="Script" id=12]
+[ext_resource path="res://scripts/player_state.gd" type="Script" id=12]
 [ext_resource path="res://assets/dead.png" type="Texture" id=13]
+[ext_resource path="res://dusk_beat.gd" type="Script" id=14]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -143,8 +144,17 @@ position = Vector2( 1882.81, 108.997 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 7 )
 animation = "dance"
-frame = 1
+frame = 2
 playing = true
+
+[node name="birp2" type="AnimatedSprite" parent="background/static_wall"]
+position = Vector2( 909.052, 1094.53 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 7 )
+animation = "dance"
+frame = 2
+playing = true
+flip_h = true
 
 [node name="player" type="KinematicBody2D" parent="."]
 position = Vector2( 200, 400 )
@@ -155,8 +165,9 @@ material = SubResource( 9 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 16 )
 animation = "dance"
-frame = 1
+frame = 2
 playing = true
+script = ExtResource( 12 )
 
 [node name="player_collider" type="CollisionShape2D" parent="player"]
 position = Vector2( 15, 5 )
@@ -225,18 +236,7 @@ __meta__ = {
 [node name="dusk_beat" type="AudioStreamPlayer" parent="UI"]
 stream = ExtResource( 10 )
 autoplay = true
-
-[node name="Label" type="Label" parent="UI"]
-margin_left = 210.0
-margin_top = 190.0
-margin_right = 250.0
-margin_bottom = 241.0
-custom_fonts/font = ExtResource( 5 )
-text = "2"
-script = ExtResource( 12 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource( 14 )
 
 [node name="shake_cam" type="Camera2D" parent="."]
 anchor_mode = 0

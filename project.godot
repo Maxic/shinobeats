@@ -17,6 +17,10 @@ _global_script_class_icons={
 config/name="shinobeats"
 run/main_scene="res://main.tscn"
 
+[autoload]
+
+PlayerState="*res://scripts/player_state.gd"
+
 [display]
 
 window/vsync/use_vsync=false

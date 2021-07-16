@@ -16,6 +16,7 @@ var pattern = "default"
 var pattern1 = preload("res://assets/blue_cubes.jpg")
 var pattern2 = preload("res://assets/orange_waves.jpg")
 var stamp = preload("res://game_objects/shinobi_stamp.tscn")
+var dead_scene = preload("res://game_objects/dead_scene_transition.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,6 +32,8 @@ func _process(delta):
 		if current_wall == pattern:
 			stamp(current_wall_node)
 			get_node("/root/main/shake_cam").trigger_shake = true
+		else:
+			self.dead = true
 		
 	if Input.is_action_just_pressed("pattern2"):
 		$ninja_anim.material.set("shader_param/transparent", true)
@@ -38,6 +41,8 @@ func _process(delta):
 		if current_wall == pattern:
 			stamp(current_wall_node)
 			get_node("/root/main/shake_cam").trigger_shake = true
+		else:
+			self.dead = true
 		
 	if pattern == "pattern1" && Input.is_action_just_released("pattern1"):
 		$ninja_anim.material.set("shader_param/transparent", false)
@@ -49,7 +54,11 @@ func _process(delta):
 		pattern = "default"
 		
 	if dead:
-		pass
+		PlayerState.dead = true
+		$ninja_anim.play("dead")
+		get_node("/root/main").add_child(dead_scene.instance())
+		dead = false
+		
 
 func stamp(node):
 	var stamp_instance = stamp.instance()

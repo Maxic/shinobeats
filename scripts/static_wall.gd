@@ -26,12 +26,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	delta_sum += delta
-	
-	if delta_sum >= time_per_pixel_threshold:
-		position.x -= 1
-		time_per_pixel_threshold += time_per_pixel
+	if !PlayerState.dead:
+		delta_sum += delta
+		
+		if delta_sum >= time_per_pixel_threshold:
+			position.x -= 1
+			time_per_pixel_threshold += time_per_pixel
 
-	if position.x < -1023:
-		get_parent().spawn_static_wall()
-		queue_free()
+		if position.x < -1023:
+			get_parent().spawn_static_wall()
+			queue_free()

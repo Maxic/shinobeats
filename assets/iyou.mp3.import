@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/iyou.mp3-3b2da66cd96841639a41665280577bb5.mp3str"
+
+[deps]
+
+source_file="res://assets/iyou.mp3"
+dest_files=[ "res://.import/iyou.mp3-3b2da66cd96841639a41665280577bb5.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
