@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/panel_and_floor_roof_earth.png" type="Texture" id=1]
+[ext_resource path="res://assets/panel_and_floor_dark.png" type="Texture" id=1]
 [ext_resource path="res://scripts/static_wall.gd" type="Script" id=2]
 
 [node name="static_wall" type="Sprite"]

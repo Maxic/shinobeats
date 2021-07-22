@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://scripts/shake_cam.gd" type="Script" id=1]
 [ext_resource path="res://assets/birpf.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://assets/dead.png" type="Texture" id=13]
 [ext_resource path="res://scripts/dusk_beat.gd" type="Script" id=14]
 [ext_resource path="res://assets/shinobi_cast.png" type="Texture" id=15]
+[ext_resource path="res://game_objects/petal_particle.tscn" type="PackedScene" id=16]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -89,73 +90,73 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=9]
 shader = SubResource( 8 )
 shader_param/transparent = false
-shader_param/filter_color_1 = Color( 0.909804, 0.909804, 0.909804, 1 )
+shader_param/filter_color_1 = Color( 0.486275, 0.486275, 0.486275, 1 )
 shader_param/u_replacement_color = Color( 0.196078, 0.196078, 0.196078, 0.196078 )
 shader_param/u_tolerance = 0.01
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 9 )
 region = Rect2( 0, 0, 218, 252 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 9 )
 region = Rect2( 218, 0, 218, 252 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 9 )
 region = Rect2( 436, 0, 218, 252 )
 
-[sub_resource type="AtlasTexture" id=13]
+[sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 9 )
 region = Rect2( 654, 0, 218, 252 )
 
-[sub_resource type="AtlasTexture" id=14]
+[sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 9 )
 region = Rect2( 872, 0, 218, 252 )
 
-[sub_resource type="AtlasTexture" id=15]
+[sub_resource type="AtlasTexture" id=32]
 atlas = ExtResource( 9 )
 region = Rect2( 1090, 0, 218, 252 )
+
+[sub_resource type="AtlasTexture" id=16]
+flags = 4
+atlas = ExtResource( 15 )
+region = Rect2( 0, 0, 218, 252 )
+
+[sub_resource type="AtlasTexture" id=17]
+flags = 4
+atlas = ExtResource( 15 )
+region = Rect2( 218, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=18]
 flags = 4
 atlas = ExtResource( 15 )
-region = Rect2( 0, 0, 218, 252 )
+region = Rect2( 436, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=19]
 flags = 4
 atlas = ExtResource( 15 )
-region = Rect2( 218, 0, 218, 252 )
-
-[sub_resource type="AtlasTexture" id=20]
-flags = 4
-atlas = ExtResource( 15 )
-region = Rect2( 436, 0, 218, 252 )
-
-[sub_resource type="AtlasTexture" id=21]
-flags = 4
-atlas = ExtResource( 15 )
 region = Rect2( 654, 0, 218, 252 )
 
-[sub_resource type="SpriteFrames" id=16]
+[sub_resource type="SpriteFrames" id=20]
 animations = [ {
-"frames": [ ExtResource( 13 ) ],
-"loop": true,
-"name": "dead",
-"speed": 0.0
-}, {
-"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
+"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ) ],
 "loop": true,
 "name": "dance",
 "speed": 9.2
 }, {
-"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 19 ), SubResource( 19 ), SubResource( 19 ) ],
 "loop": false,
 "name": "cast",
-"speed": 10.0
+"speed": 40.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "dead",
+"speed": 0.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=17]
+[sub_resource type="RectangleShape2D" id=26]
 extents = Vector2( 6, 50 )
 
 [node name="main" type="Node"]
@@ -189,15 +190,17 @@ script = ExtResource( 3 )
 [node name="ninja_anim" type="AnimatedSprite" parent="player"]
 material = SubResource( 9 )
 scale = Vector2( 0.5, 0.5 )
-frames = SubResource( 16 )
+frames = SubResource( 20 )
 animation = "dance"
-frame = 5
+frame = 3
 playing = true
 script = ExtResource( 12 )
 
+[node name="petal_particle" parent="player/ninja_anim" instance=ExtResource( 16 )]
+
 [node name="player_collider" type="CollisionShape2D" parent="player"]
 position = Vector2( 15, 5 )
-shape = SubResource( 17 )
+shape = SubResource( 26 )
 
 [node name="UI" type="Control" parent="."]
 anchor_right = 1.0

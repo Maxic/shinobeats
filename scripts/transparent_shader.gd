@@ -5,8 +5,8 @@ extends AnimatedSprite
 var trigger_transparency = false
 var is_transparent = false
 
-export var transparancy_time = 1.2
-var transparancy_delay = 0.2
+export var transparancy_time = 1.4
+var transparancy_delay = 0.05
 var elapsedtime = 0
 
 # Called when the node enters the scene tree for the first time.
