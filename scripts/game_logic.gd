@@ -6,6 +6,7 @@ const WALL_WIDTH = 256
 
 var dynamicwall_pattern1 = preload("res://game_objects/dynamicwall_pattern1.tscn")
 var dynamicwall_pattern2 = preload("res://game_objects/dynamicwall_pattern2.tscn")
+var win_wall = preload("res://game_objects/win_panel.tscn")
 var static_wall = preload("res://game_objects/static_wall.tscn")
 
 
@@ -17,13 +18,18 @@ func _ready():
 		spawn_dynamic_wall(dynamicwall_pattern1, (wall_index-1)*WALL_WIDTH)
 	for wall_index in yellow_wall_arr:
 		spawn_dynamic_wall(dynamicwall_pattern2, (wall_index-1)*WALL_WIDTH)
+	spawn_dynamic_wall(win_wall, 83*WALL_WIDTH)
 	
 	spawn_static_wall()
 
 
-## Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	
+	if Input.is_action_just_pressed("restart"):
+		PlayerState.dead = false
+		PlayerState.amount_of_panels = 0
+		PlayerState.win = false
+		get_tree().reload_current_scene()
 		
 func spawn_static_wall():
 	var staticwall_instance = static_wall.instance()

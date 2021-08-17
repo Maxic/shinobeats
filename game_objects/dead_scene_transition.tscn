@@ -1,9 +1,22 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/fade_to_black.gd" type="Script" id=1]
 [ext_resource path="res://assets/iyou.mp3" type="AudioStream" id=2]
+[ext_resource path="res://assets/M5x7Font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://game_objects/press_r_to_restart.gd" type="Script" id=4]
 
-[node name="fade_to_black" type="ColorRect"]
+[node name="fade_to_black_scene" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="dead_yooo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+autoplay = true
+
+[node name="fade_to_black" type="ColorRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -12,6 +25,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="dead_yooo" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 2 )
-autoplay = true
+[node name="press_r_to_restart" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -206.0
+margin_top = -79.5
+margin_right = 206.0
+margin_bottom = 79.5
+custom_fonts/font = ExtResource( 3 )
+text = "You got caught!
+
+Press 'R' to restart"
+align = 1
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
