@@ -90,52 +90,52 @@ void fragment() {
 shader = SubResource( 8 )
 shader_param/transparent = false
 shader_param/filter_color_1 = Color( 1, 1, 1, 1 )
-shader_param/u_replacement_color = Color( 0.196078, 0.196078, 0.196078, 0.196078 )
+shader_param/u_replacement_color = Color( 0.196078, 0.196078, 0.196078, 0 )
 shader_param/u_tolerance = 0.1
 
 [sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 9 )
+flags = 4
+atlas = ExtResource( 15 )
 region = Rect2( 0, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 9 )
+flags = 4
+atlas = ExtResource( 15 )
 region = Rect2( 218, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 9 )
+flags = 4
+atlas = ExtResource( 15 )
 region = Rect2( 436, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 9 )
+flags = 4
+atlas = ExtResource( 15 )
 region = Rect2( 654, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 9 )
-region = Rect2( 872, 0, 218, 252 )
+region = Rect2( 0, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 9 )
-region = Rect2( 1090, 0, 218, 252 )
-
-[sub_resource type="AtlasTexture" id=16]
-flags = 4
-atlas = ExtResource( 15 )
-region = Rect2( 0, 0, 218, 252 )
-
-[sub_resource type="AtlasTexture" id=17]
-flags = 4
-atlas = ExtResource( 15 )
 region = Rect2( 218, 0, 218, 252 )
 
-[sub_resource type="AtlasTexture" id=18]
-flags = 4
-atlas = ExtResource( 15 )
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 9 )
 region = Rect2( 436, 0, 218, 252 )
 
-[sub_resource type="AtlasTexture" id=19]
-flags = 4
-atlas = ExtResource( 15 )
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 9 )
 region = Rect2( 654, 0, 218, 252 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 9 )
+region = Rect2( 872, 0, 218, 252 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 9 )
+region = Rect2( 1090, 0, 218, 252 )
 
 [sub_resource type="SpriteFrames" id=20]
 animations = [ {
@@ -144,15 +144,15 @@ animations = [ {
 "name": "dead",
 "speed": 0.0
 }, {
-"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
-"loop": true,
-"name": "dance",
-"speed": 9.2
-}, {
-"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 19 ), SubResource( 19 ), SubResource( 19 ) ],
+"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 13 ), SubResource( 13 ), SubResource( 13 ) ],
 "loop": false,
 "name": "cast",
 "speed": 40.0
+}, {
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"loop": true,
+"name": "dance",
+"speed": 9.2
 } ]
 
 [sub_resource type="RectangleShape2D" id=21]
@@ -170,7 +170,7 @@ position = Vector2( 1882.81, 108.997 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 7 )
 animation = "dance"
-frame = 1
+frame = 5
 playing = true
 
 [node name="birp2" type="AnimatedSprite" parent="background/static_wall"]
@@ -178,26 +178,9 @@ position = Vector2( 909.052, 1094.53 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 7 )
 animation = "dance"
-frame = 1
+frame = 5
 playing = true
 flip_h = true
-
-[node name="player" type="KinematicBody2D" parent="."]
-position = Vector2( 200, 400 )
-script = ExtResource( 3 )
-
-[node name="ninja_anim" type="AnimatedSprite" parent="player"]
-material = SubResource( 9 )
-scale = Vector2( 0.5, 0.5 )
-frames = SubResource( 20 )
-animation = "dance"
-frame = 3
-playing = true
-script = ExtResource( 12 )
-
-[node name="player_collider" type="CollisionShape2D" parent="player"]
-position = Vector2( 15, 5 )
-shape = SubResource( 21 )
 
 [node name="UI" type="Control" parent="."]
 anchor_right = 1.0
@@ -268,5 +251,23 @@ script = ExtResource( 14 )
 anchor_mode = 0
 current = true
 script = ExtResource( 1 )
+
+[node name="player" type="KinematicBody2D" parent="."]
+position = Vector2( 200, 400 )
+script = ExtResource( 3 )
+
+[node name="ninja_anim" type="AnimatedSprite" parent="player"]
+light_mask = 3
+material = SubResource( 9 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 20 )
+animation = "dance"
+frame = 1
+playing = true
+script = ExtResource( 12 )
+
+[node name="player_collider" type="CollisionShape2D" parent="player"]
+position = Vector2( 15, 5 )
+shape = SubResource( 21 )
 
 [connection signal="animation_finished" from="player/ninja_anim" to="player/ninja_anim" method="_on_ninja_anim_animation_finished"]

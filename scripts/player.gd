@@ -31,7 +31,7 @@ func _process(delta):
 		
 		if current_wall == pattern:
 			$ninja_anim.trigger_transparency =  true
-			$ninja_anim.play("cast")
+			#$ninja_anim.play("cast")
 			stamp(current_wall_node)
 			get_node("/root/main/shake_cam").trigger_shake = true
 		else:
@@ -42,7 +42,7 @@ func _process(delta):
 		
 		if current_wall == pattern:
 			$ninja_anim.trigger_transparency =  true
-			$ninja_anim.play("cast")
+			#$ninja_anim.play("cast")
 			stamp(current_wall_node)
 			get_node("/root/main/shake_cam").trigger_shake = true
 		else:

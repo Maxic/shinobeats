@@ -37,8 +37,10 @@ shape = SubResource( 3 )
 position = Vector2( 128, 128 )
 texture = ExtResource( 1 )
 texture_scale = 0.5
-energy = 1.14
+color = Color( 0.984314, 0.94902, 0.862745, 1 )
+energy = 1.48
 mode = 2
+range_item_cull_mask = 3
 
 [connection signal="body_entered" from="." to="." method="_on_dynamicwall_pattern2_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_dynamicwall_pattern2_body_exited"]
