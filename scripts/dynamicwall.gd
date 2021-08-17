@@ -51,3 +51,12 @@ func _on_dynamicwall_pattern2_body_exited(body):
 func _on_win_panel_body_entered(body):
 	PlayerState.win = true
 	get_node("/root/main").add_child(end_scene.instance())
+
+func _on_death_zone_1_body_entered(body):
+	if body.pattern != 'pattern1':
+		body.dead = true
+
+
+func _on_death_zone_2_body_entered(body):
+	if body.pattern != 'pattern2':
+		body.dead = true
