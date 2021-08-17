@@ -1,7 +1,6 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scripts/shake_cam.gd" type="Script" id=1]
-[ext_resource path="res://assets/birpf.png" type="Texture" id=2]
 [ext_resource path="res://scripts/player.gd" type="Script" id=3]
 [ext_resource path="res://assets/yellow_icon.png" type="Texture" id=4]
 [ext_resource path="res://assets/M5x7Font.tres" type="DynamicFont" id=5]
@@ -15,38 +14,6 @@
 [ext_resource path="res://assets/dead.png" type="Texture" id=13]
 [ext_resource path="res://scripts/dusk_beat.gd" type="Script" id=14]
 [ext_resource path="res://assets/shinobi_cast.png" type="Texture" id=15]
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 56, 78 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
-region = Rect2( 56, 0, 56, 78 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 2 )
-region = Rect2( 112, 0, 56, 78 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 2 )
-region = Rect2( 168, 0, 56, 78 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
-region = Rect2( 224, 0, 56, 78 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 2 )
-region = Rect2( 280, 0, 56, 78 )
-
-[sub_resource type="SpriteFrames" id=7]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
-"loop": true,
-"name": "dance",
-"speed": 9.2
-} ]
 
 [sub_resource type="Shader" id=8]
 code = "shader_type canvas_item;
@@ -94,48 +61,48 @@ shader_param/u_replacement_color = Color( 0.196078, 0.196078, 0.196078, 0 )
 shader_param/u_tolerance = 0.1
 
 [sub_resource type="AtlasTexture" id=10]
-flags = 4
-atlas = ExtResource( 15 )
+atlas = ExtResource( 9 )
 region = Rect2( 0, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=11]
-flags = 4
-atlas = ExtResource( 15 )
+atlas = ExtResource( 9 )
 region = Rect2( 218, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=12]
-flags = 4
-atlas = ExtResource( 15 )
+atlas = ExtResource( 9 )
 region = Rect2( 436, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=13]
-flags = 4
-atlas = ExtResource( 15 )
+atlas = ExtResource( 9 )
 region = Rect2( 654, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 9 )
-region = Rect2( 0, 0, 218, 252 )
+region = Rect2( 872, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 9 )
-region = Rect2( 218, 0, 218, 252 )
+region = Rect2( 1090, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 9 )
-region = Rect2( 436, 0, 218, 252 )
+flags = 4
+atlas = ExtResource( 15 )
+region = Rect2( 0, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 9 )
-region = Rect2( 654, 0, 218, 252 )
+flags = 4
+atlas = ExtResource( 15 )
+region = Rect2( 218, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 9 )
-region = Rect2( 872, 0, 218, 252 )
+flags = 4
+atlas = ExtResource( 15 )
+region = Rect2( 436, 0, 218, 252 )
 
 [sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 9 )
-region = Rect2( 1090, 0, 218, 252 )
+flags = 4
+atlas = ExtResource( 15 )
+region = Rect2( 654, 0, 218, 252 )
 
 [sub_resource type="SpriteFrames" id=20]
 animations = [ {
@@ -144,15 +111,15 @@ animations = [ {
 "name": "dead",
 "speed": 0.0
 }, {
-"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 13 ), SubResource( 13 ), SubResource( 13 ) ],
-"loop": false,
-"name": "cast",
-"speed": 40.0
-}, {
-"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
 "loop": true,
 "name": "dance",
 "speed": 9.2
+}, {
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 19 ), SubResource( 19 ), SubResource( 19 ) ],
+"loop": false,
+"name": "cast",
+"speed": 40.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=21]
@@ -164,23 +131,6 @@ extents = Vector2( 6, 50 )
 script = ExtResource( 11 )
 
 [node name="static_wall" parent="background" instance=ExtResource( 8 )]
-
-[node name="birp" type="AnimatedSprite" parent="background/static_wall"]
-position = Vector2( 1882.81, 108.997 )
-scale = Vector2( 2, 2 )
-frames = SubResource( 7 )
-animation = "dance"
-frame = 5
-playing = true
-
-[node name="birp2" type="AnimatedSprite" parent="background/static_wall"]
-position = Vector2( 909.052, 1094.53 )
-scale = Vector2( 2, 2 )
-frames = SubResource( 7 )
-animation = "dance"
-frame = 5
-playing = true
-flip_h = true
 
 [node name="UI" type="Control" parent="."]
 anchor_right = 1.0
@@ -262,7 +212,7 @@ material = SubResource( 9 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 20 )
 animation = "dance"
-frame = 1
+frame = 5
 playing = true
 script = ExtResource( 12 )
 
