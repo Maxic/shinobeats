@@ -3,6 +3,7 @@ extends Area2D
 
 # Declare member variables here. Examples:
 var stamp = preload("res://game_objects/shinobi_stamp.tscn")
+var end_scene = preload("res://game_objects/dead_scene_transition.tscn")
 
 export var MOVE_SPEED = 20.0
 var delta_sum = 0
@@ -18,7 +19,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if !PlayerState.dead:
+	if not (PlayerState.dead or PlayerState.win):
 		delta_sum += delta
 		
 		if delta_sum >= time_per_pixel_threshold:
@@ -34,23 +35,19 @@ func _on_dynamicwall_pattern1_body_entered(body):
 	body.current_wall_node = self
 		
 func _on_dynamicwall_pattern1_body_exited(body):
+	PlayerState.amount_of_panels += 1
 	pass
 
 func _on_dynamicwall_pattern2_body_entered(body):
+	
 	var current_pattern = "pattern2"
 	body.current_wall = current_pattern
 	body.current_wall_node = self
 
 func _on_dynamicwall_pattern2_body_exited(body):
+	PlayerState.amount_of_panels += 1
 	pass
 
-#func validate_state(current_state, desired_state):
-#	if current_state.is_subsequence_of(desired_state):
-#		var stamp_instance = stamp.instance()
-#		add_child(stamp_instance)
-#		get_node("/root/main/shake_cam").trigger_shake = true
-#		stamp_instance.get_child(0).play("stamp")
-#		#print("dynamicwall: " + str(OS.get_ticks_msec()))
-#	else:
-#		print("dead!")
-#		get_node("/root/main/player").dead = true
+func _on_win_panel_body_entered(body):
+	PlayerState.win = true
+	get_node("/root/main").add_child(end_scene.instance())
